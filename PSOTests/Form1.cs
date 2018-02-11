@@ -92,9 +92,7 @@ namespace PSOTests
         private void GenGraph2()
         {
             this.ShowParticleOnGraph(population);
-            //this.ShowGraphChart(population);
-           // this.ShowCharts(population);
-            //this.RefreshModel();
+            this.RefreshModel();
         }
 
         private void RefreshModel()

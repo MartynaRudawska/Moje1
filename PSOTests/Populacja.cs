@@ -17,10 +17,10 @@ namespace PSOTests
     {
         public static int numParticles { get; private set; }
         public static int maxEpochs = 1000;
-        public static double exitError { get; private set; }
-        public static double minX { get; private set; } // problem-dependent
-        public static double maxX { get; private set; }
-        public static double min { get; private set; }
+        public double exitError { get; private set; }
+        public double minX { get; private set; } // problem-dependent
+        public double maxX { get; private set; }
+        public double min { get; private set; }
         public static string PostacFunkcji;
         Particle[] roj;
         private static double najlepszaPozycja;
@@ -43,12 +43,6 @@ namespace PSOTests
             this.dim = dim;
         }
 
-        public Populacja(int populationSize, FunctionName.Type type)
-        {
-            this.populationSize = populationSize;
-            this.type = type;
-        }
-
 
         /// <summary>
         /// Konstruktor algorytmu PSO
@@ -57,7 +51,7 @@ namespace PSOTests
         /// <param name="ilCzastek">Ilość cząstek roju</param>
         /// <param name="maxIteracji">maksymalna ilość Iteracji</param>
         /// <param name="Funkcja">Tekstowa postać funkcji do optymalizacji</param>
-       /* public Populacja(Tuple<double, double> dziedzina, int populationSize, int ilCzastek, int maxIteracji, string Funkcja, int dim, FunctionName.Type type)
+        public Populacja(Tuple<double, double> dziedzina, int populationSize, int ilCzastek, int maxIteracji, string Funkcja, int dim, FunctionName.Type type)
         {
             minX = dziedzina.Item1;
             maxX = dziedzina.Item2;
@@ -68,23 +62,20 @@ namespace PSOTests
             this.populationSize = populationSize;
 
 
-        }*/
-
-        public Populacja()
-        {
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="MaxEpochSize"></param>
+        /// <param name="modelpopulationSize"></param>
         /// <param name="type"></param>
-        /*public Populacja(int MaxEpochSize, FunctionName.Type type)
+        public Populacja(int modelpopulationSize, FunctionName.Type type)
         {
             this.MaxEpochSize = MaxEpochSize;
             this.type = type;
-        }*/
-
+        }
+        public Populacja() { }
+        #endregion
 
         private int axisTicks { get; set; }
         private double entireInterval { get; set; }
@@ -94,15 +85,15 @@ namespace PSOTests
         public double NajlepszaFitness = double.MaxValue;
         private int MaxEpochSize;
 
-        #endregion
+
         private static double randomPoint(double a, double b)
         {
-            System.Random r = new System.Random();
+            System.Random r = new Random();
 
             return a + r.NextDouble() * (b - a);
         }
-
-       /* private static double Error(FunctionName.Type PostacFunkcji, double x)
+        /*
+        private static double Error(FunctionName.Type PostacFunkcji, double x)
         {
             // double trueMin = 0, y = 0.0, xp, xk;
             switch (PostacFunkcji)
@@ -126,8 +117,8 @@ namespace PSOTests
                     
 
             }
-        }*/
-
+        }
+        */
         // Utwórz populacje
         public void GeneratePopulation(int Dim)
         {
@@ -163,14 +154,14 @@ namespace PSOTests
             }
         }
 
-        public static Populacja copy()
+        public static Populacja Copy()
         {
             Populacja item = new Populacja();
-            item.maxX = this.maxX;
-            item.minX = this.minX;
-            item.populationSize =this.populationSize;
-            item.type = this.type;
-            item.dim = this.dim;
+            item.maxX = maxX;
+            item.minX = minX;
+            item.populationSize = populationSize;
+            item.type = type;
+            item.dim = dim;
             return item;
         }
 
@@ -182,7 +173,7 @@ namespace PSOTests
             Random r = new Random();
             double param1;
             double param2;
-            entireInterval = this.maxX - this.minX;
+            entireInterval = maxX - minX;
             axisTicks = (int)Math.Sqrt(this.populationSize) / 2;
             interval = entireInterval / (axisTicks * 2);
 
